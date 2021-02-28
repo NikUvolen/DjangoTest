@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href={% static 'news/css/style.css' %}>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
+    <title>{{ title }}</title>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">{{ title }}</h1>
+
+        <div class="main__content">
+            {% for item in news %}
+                <div class="post">
+                    <div class="post__header">
+                        <div class="post__ava">
+                            <a class="post__link" href="">
+                                <img class="post__img" src={% static "news/test_ava.png" %} alt="">
+                            </a>
+                        </div>
+
+                        <div class="post__header__info">
+                            <h5 class="post__author">
+                                <a class="author" href="">Тут типо написан автор</a>
+                            </h5>
+                            <span class="post__date">{{ item.created_at }}.</span>
+                            <a class="post__category" href="category/{{ item.category.pk }}">{{ item.category }}</a>
+                        </div>
+                    </div>
+
+                    <div class="post__text">
+                        <p class="text">{{ item.content }}</p>
+                    </div>
+
+                    <div class="comments">
+                        {% for comment in comments %}
+                        {% if comment.post == item %}
+                        <div class="comment">
+                            <div class="commentator__ava">
+                                <a class="post__link" href="">
+                                    <img class="post__img" src={% static "news/test_ava.png" %} alt="">
+                                </a>
+                            </div>
+                            <div class="comment__info">
+                                <a class="commentator" href="#">{{ comment.commentator_name }}</a>
+                                <div class="comment__text">
+                                    <p>{{ comment.comment }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
